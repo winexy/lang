@@ -179,7 +179,7 @@ function parse(input) {
 
   function parseExpression() {
     return maybeCall(() => {
-      maybeBinary(parseAtom(), 0)
+      return maybeBinary(parseAtom(), 0)
     })
   }
 

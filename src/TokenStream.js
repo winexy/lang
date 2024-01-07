@@ -1,6 +1,5 @@
 /**
  * @param input {ReturnType<import('./InputStream').InputStream>}
- * @constructor
  */
 function TokenStream(input) {
   let current = null

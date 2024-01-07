@@ -1,6 +1,5 @@
 /**
  * @param input {string}
- * @constructor
  */
 function InputStream(input) {
   let pos = 0

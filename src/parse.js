@@ -94,11 +94,17 @@ function parse(input) {
     input.raise(`Unexpected token: ${JSON.stringify(token)}`)
   }
 
+  /**
+   * @private
+   */
   function maybeCall(expression) {
     const expr = expression()
     return isPunctuation('(') ? parseCall(expr) : expr
   }
 
+  /**
+   * @private
+   */
   function maybeBinary(left, myPrecedence) {
     const token = isOperator()
 
@@ -159,6 +165,9 @@ function parse(input) {
     return a
   }
 
+  /**
+   * @private
+   */
   function parseLambda() {
     return {
       type: 'lambda',
@@ -167,6 +176,9 @@ function parse(input) {
     }
   }
 
+  /**
+   * @private
+   */
   function parseVarName() {
     const name = input.next()
 
@@ -177,12 +189,18 @@ function parse(input) {
     return name.value
   }
 
+  /**
+   * @private
+   */
   function parseExpression() {
     return maybeCall(() => {
       return maybeBinary(parseAtom(), 0)
     })
   }
 
+  /**
+   * @private
+   */
   function parseBool() {
     return {
       type: 'bool',
@@ -190,6 +208,9 @@ function parse(input) {
     }
   }
 
+  /**
+   * @private
+   */
   function parseTopLevel() {
     const program = []
 
@@ -203,7 +224,9 @@ function parse(input) {
     }
   }
 
-
+  /**
+   * @private
+   */
   function parseIf() {
     skipKW('if')
 
@@ -229,6 +252,9 @@ function parse(input) {
     return ret
   }
 
+  /**
+   * @private
+   */
   function parseProgram() {
     const program = delimited('{', '}', ';', parseExpression)
 
@@ -242,6 +268,9 @@ function parse(input) {
     }
   }
 
+  /**
+   * @private
+   */
   function parseAtom() {
     return maybeCall(() => {
       if (isPunctuation('(')) {
@@ -283,6 +312,9 @@ function parse(input) {
     })
   }
 
+  /**
+   * @private
+   */
   function parseCall(func) {
     return {
       type: 'call',
